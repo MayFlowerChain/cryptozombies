@@ -18,4 +18,8 @@ contract ZombieHelper is ZombieFeeding {
         require(zombieToOwner[_zombieId] == msg.sender, "您并非该僵尸的主人");
         zombies[_zombieId].dna = _newDna;
     }
+
+    function getZombiesByOwner(address _owner) external view returns (uint[]) {
+    
+    }
 }
