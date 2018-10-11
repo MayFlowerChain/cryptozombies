@@ -4,9 +4,24 @@ import "./zombiefeeding.sol";
 
 contract ZombieHelper is ZombieFeeding {
 
+    uint levelUpFee = 0.001 ether;
+
     modifier aboveLevel(uint _level, uint _zombieId) {
         require(zombies[_zombieId].level >= _level, "您的僵尸级别不够");
         _;
+    }
+
+    function levelUp(uint _zombieId) external payable {
+        require (msg.value == levelUpFee, "费用不匹配");
+        zombies[_zombieId].level++;
+    }
+
+    function withdraw() external onlyOwner {
+        owner.transfer(this.balance);
+    }
+
+    function setLevelUpFee(uint _fee) external onlyOwner {
+        levelUpFee = _fee;
     }
 
     function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
