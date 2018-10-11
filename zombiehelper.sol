@@ -24,13 +24,11 @@ contract ZombieHelper is ZombieFeeding {
         levelUpFee = _fee;
     }
 
-    function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) {
-        require(zombieToOwner[_zombieId] == msg.sender, "您并非该僵尸的主人");
+    function changeName(uint _zombieId, string _newName) external aboveLevel(2, _zombieId) ownerOf(_zombieId) {
         zombies[_zombieId].name = _newName;
     }
 
-    function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) {
-        require(zombieToOwner[_zombieId] == msg.sender, "您并非该僵尸的主人");
+    function changeDna(uint _zombieId, uint _newDna) external aboveLevel(20, _zombieId) ownerOf(_zombieId) {
         zombies[_zombieId].dna = _newDna;
     }
 
